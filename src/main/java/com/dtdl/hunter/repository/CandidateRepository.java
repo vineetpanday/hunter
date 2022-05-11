@@ -9,4 +9,7 @@ public interface CandidateRepository extends CrudRepository<Candidate, Long> {
 
     @Override
     <S extends Candidate> S save(S entity);
+
+
+
 }

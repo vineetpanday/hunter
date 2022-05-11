@@ -20,7 +20,7 @@ public class Resume {
     @Column(name="file_Name")
     String fileName;
 
-    @OneToOne(mappedBy = "resume", cascade =  CascadeType.ALL)
+    @OneToOne(mappedBy = "resume", cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
     Candidate candidate;
 
 }

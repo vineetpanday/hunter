@@ -32,7 +32,7 @@ public class Candidate {
     @Column(name="email_Id")
     private String emailId;
 
-    @OneToOne
+    @OneToOne( fetch = FetchType.LAZY)
     @JoinColumn(name="resume_id")
     private Resume resume;
 
