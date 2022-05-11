@@ -15,6 +15,8 @@ public interface CandidateRepository extends CrudRepository<Candidate, Long> {
 
     List<Candidate> findAllByStatus(String status);
 
+    List<Candidate> findAllByReferredBy(String referredBy);
 
+    List<Candidate> findAllByHrSpocAndStatus(String userId, String result);
 
 }

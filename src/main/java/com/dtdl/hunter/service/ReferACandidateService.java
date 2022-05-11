@@ -12,4 +12,11 @@ public interface ReferACandidateService {
      void markCandidateNotInterested(Long id);
 
      List<Candidate> getAllCandidatesToBeReviewed();
+
+     List<com.dtdl.hunter.model.Candidate> getUserReferrals(String userId);
+
+     void markAcceptOrRejectByHr(Long id, String result);
+
+     List<com.dtdl.hunter.model.Candidate> getCandidat edMappedToHr(String userId, String result);
+
 }

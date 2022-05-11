@@ -107,4 +107,68 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
       });
       return candidatesDtoList;
     }
+
+    @Override
+    public List<com.dtdl.hunter.model.Candidate> getUserReferrals(String userId) {
+        List<Candidate> candidates = candidateRepository.findAllByReferredBy(userId);
+
+        List<com.dtdl.hunter.model.Candidate> candidatesDtoList = new ArrayList<>();
+
+        candidates.forEach( c->{
+            com.dtdl.hunter.model.Candidate candidate = new com.dtdl.hunter.model.Candidate();
+
+            candidate.setId(c.getId());;
+            candidate.setName(c.getName());
+            candidate.setReferralDate(c.getReferralDate());
+            candidate.setReferredBy(c.getReferredBy());
+            candidate.setPosition(c.getPosition());
+            candidate.setStatus(c.getStatus());
+            candidate.setEmailId(c.getEmailId());
+            candidate.setResumeId(c.getResume().getId());
+            candidate.setLinkedInId(c.getLinkedInId());
+            candidate.setResult(c.getResult());
+            candidate.setHrSpoc(c.getHrSpoc());
+            candidatesDtoList.add(candidate);
+        });
+
+        return candidatesDtoList;
+    }
+
+    @Override
+    public void markAcceptOrRejectByHr(Long id, String result) {
+        Optional<Candidate> candidate = candidateRepository.findById(id);
+        if(candidate.isPresent()){
+            candidate.get().setStatus(result);
+            candidateRepository.save(candidate.get());
+        }
+    }
+
+    @Override
+    public List<com.dtdl.hunter.model.Candidate> getCandidatedMappedToHr(String userId, String result) {
+
+        List<Candidate> candidates =  candidateRepository.findAllByHrSpocAndStatus(userId, result);
+
+
+        List<com.dtdl.hunter.model.Candidate> candidatesDtoList = new ArrayList<>();
+
+        candidates.forEach( c->{
+            com.dtdl.hunter.model.Candidate candidate = new com.dtdl.hunter.model.Candidate();
+
+            candidate.setId(c.getId());;
+            candidate.setName(c.getName());
+            candidate.setReferralDate(c.getReferralDate());
+            candidate.setReferredBy(c.getReferredBy());
+            candidate.setPosition(c.getPosition());
+            candidate.setStatus(c.getStatus());
+            candidate.setEmailId(c.getEmailId());
+            candidate.setResumeId(c.getResume().getId());
+            candidate.setLinkedInId(c.getLinkedInId());
+            candidate.setResult(c.getResult());
+            candidate.setHrSpoc(c.getHrSpoc());
+
+            candidatesDtoList.add(candidate);
+        });
+        return candidatesDtoList;
+    }
+
 }
