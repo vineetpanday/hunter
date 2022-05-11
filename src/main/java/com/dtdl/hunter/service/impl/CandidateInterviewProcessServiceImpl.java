@@ -18,7 +18,7 @@ public class CandidateInterviewProcessServiceImpl implements CandidateInterviewP
 
     @Override
     public List<Interview> getAllUpcomingInterviewForGivenUser(String userId) {
-        List<CandidateInterviewProcess> interviews = candidateInterviewProcessRepository.findByEmailId(userId);
+        List<CandidateInterviewProcess> interviews = candidateInterviewProcessRepository.findByUserSlotEmployeeId(userId);
         List<Interview> interviewsList = interviews.stream().map(interview -> new Interview(interview.getId())).collect(Collectors.toList());
         return interviewsList;
     }
