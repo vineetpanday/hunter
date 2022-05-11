@@ -1,12 +1,13 @@
 package com.dtdl.hunter.controller;
 
-import com.dtdl.hunter.model.ReferCandidateInput;
-import com.dtdl.hunter.service.CandidateInterviewProcessService;
+import com.dtdl.hunter.model.Candidate;
 import com.dtdl.hunter.service.ReferACandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 public class ReferCandidateController {
@@ -33,4 +34,10 @@ public class ReferCandidateController {
 
     }
 
+
+    @GetMapping(value="v1/getAllCandidatesToBeReviewed")
+    public List<Candidate> markCandidateNotInterested(){
+      return service.getAllCandidatesToBeReviewed();
+
+ }
 }
