@@ -1,6 +1,7 @@
 package com.dtdl.hunter.service;
 
 import com.dtdl.hunter.model.Interview;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;

@@ -1,9 +1,12 @@
 package com.dtdl.hunter.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name="candidate")
+@Data
 public class Candidate {
 
     @Id
@@ -25,8 +28,12 @@ public class Candidate {
     @Column(name="status")
     private String status;
 
-    @Column(name="email_id")
+    @Column(name="email_Id")
     private String emailId;
+
+    @OneToOne
+    @JoinColumn(name="resume_id")
+    private Resume resume;
 
     @Column(name="linkedIn_id")
     private String linkedInId;
