@@ -1,16 +1,22 @@
 package com.dtdl.hunter.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
-@Entity(name = "vacancies")
-public class Vacancies {
+@Entity(name = "vacancy")
+@Data
+public class Vacancy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name="open_position")
-    private Integer openPosition;
+    @Column(name="job_Id")
+    private String jobId;
+
+    @Column(name="open_positions")
+    private Integer openPositions;
 
     @Column(name="role")
     private String role;

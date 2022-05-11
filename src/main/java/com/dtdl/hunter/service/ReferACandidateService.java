@@ -8,4 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ReferACandidateService {
 
     public void referCandidate( MultipartFile resume, String name, String email, String position, String linkedInId, String referredBy);
+
+    public void markCandidateNotInterested(Long id);
 }

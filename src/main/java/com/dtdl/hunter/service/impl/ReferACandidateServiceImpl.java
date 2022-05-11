@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class ReferACandidateServiceImpl implements ReferACandidateService {
@@ -60,8 +61,6 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
             e.printStackTrace();
         }
 
-
-
         candidate.setResume(r);
         r.setCandidate(candidate);
         resumeRepository.save(r);
@@ -76,5 +75,15 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
         mail.setMailContent("Hi, \n\n\n You have been referred at DT. We will contact you after analysing your resume!!\n\nThanks\nDTDL");
 
         mailService.sendEmail(mail);
+    }
+
+
+    public void markCandidateNotInterested(Long id){
+        Optional<Candidate> candidate = candidateRepository.findById(id);
+        if(candidate.isPresent()){
+            candidate.get().setStatus("Candidate interested");
+            candidateRepository.save(candidate.get());
+        }
+
     }
 }

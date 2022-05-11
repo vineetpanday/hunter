@@ -26,4 +26,11 @@ public class ReferCandidateController {
 
     return ResponseEntity.ok("Success");
     }
+
+    @GetMapping(value="v1/markCandidateNotInterested")
+    public void markCandidateNotInterested(@RequestParam  Long id){
+     service.markCandidateNotInterested(id);
+
+    }
+
 }
