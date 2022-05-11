@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity(name="candidate")
 @Data
@@ -44,7 +45,7 @@ public class Candidate {
     @Column(name="hr_spoc")
     private String hrSpoc;
 
-
-
+    @OneToMany(mappedBy = "candidate")
+    private Set<CandidateInterviewProcess> candidateInterviewProcesss;
 
 }

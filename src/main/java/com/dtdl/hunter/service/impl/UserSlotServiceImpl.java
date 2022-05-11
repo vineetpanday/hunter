@@ -7,7 +7,9 @@ import com.dtdl.hunter.service.UserSlotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserSlotServiceImpl implements UserSlotService {
@@ -41,5 +43,17 @@ public class UserSlotServiceImpl implements UserSlotService {
     @Override
     public void deleteSlot(Long id) {
         userSlotRepository.deleteById(id);
+    }
+
+    @Override
+    public List<UserSlotModel> getSlotsForSpeciality(String speciality) {
+        List<UserSlot> userSlots = userSlotRepository.findAllBySpecialityAndInterviewDateAfterNow(speciality);
+       return userSlots.stream().map(slot->new UserSlotModel(slot.getId(),slot.getEmployeeId(),slot.getInterviewDate(),slot.getDesignation(),slot.getSpeciality())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserSlotModel> getMyAvailableSlots(String employeeId) {
+        List<UserSlot> userSlots= userSlotRepository.getMyAvailableSlots(employeeId);
+        return userSlots.stream().map(slot->new UserSlotModel(slot.getId(),slot.getEmployeeId(),slot.getInterviewDate(),slot.getDesignation(),slot.getSpeciality())).collect(Collectors.toList());
     }
 }

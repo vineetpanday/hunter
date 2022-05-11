@@ -3,7 +3,6 @@ package com.dtdl.hunter.service.impl;
 import com.dtdl.hunter.entity.Candidate;
 import com.dtdl.hunter.entity.Resume;
 import com.dtdl.hunter.model.Mail;
-import com.dtdl.hunter.model.ReferCandidateInput;
 import com.dtdl.hunter.repository.CandidateRepository;
 import com.dtdl.hunter.repository.ResumeRepository;
 import com.dtdl.hunter.service.MailService;
@@ -14,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Service

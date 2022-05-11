@@ -14,14 +14,11 @@ public class CandidateInterviewProcess {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "email_id")
-    private String emailId;
-
     @Column(name = "round_type")
     private String roundType;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_slot", referencedColumnName = "id")
+    @JoinColumn(name = "user_slot_id", referencedColumnName = "id")
     private UserSlot userSlot;
 
     @Column(name="feedback")
@@ -30,4 +27,7 @@ public class CandidateInterviewProcess {
     @Column(name="result")
     private String result;
 
+    @ManyToOne
+    @JoinColumn(name = "candidate_id")
+    Candidate candidate;
 }
