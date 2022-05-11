@@ -4,10 +4,7 @@ package com.dtdl.hunter.controller;
 import com.dtdl.hunter.model.Interview;
 import com.dtdl.hunter.service.CandidateInterviewProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,8 +15,21 @@ public class CandidateInterviewProcessController {
     CandidateInterviewProcessService candidateInterviewProcessService;
 
     @RequestMapping(value="v1/getAllUpcomingInterviewForGivenUser",method= RequestMethod.GET)
+    @ResponseBody
     public List<Interview> getAllUpcomingInterviewForGivenUser(@RequestParam(value="emailId") String emailId){
       return  candidateInterviewProcessService.getAllUpcomingInterviewForGivenUser(emailId);
+    }
+
+    @RequestMapping(value="v1/scheduleInterview",method= RequestMethod.POST)
+    @ResponseBody
+    public void scheduleInterview(@RequestBody Interview interview){
+          candidateInterviewProcessService.scheduleInterview(interview);
+    }
+
+    @RequestMapping(value="v1/updateInterviewResult",method= RequestMethod.POST)
+    @ResponseBody
+    public void updateInterviewResult(@RequestBody Interview interview){
+        candidateInterviewProcessService.updateInterviewResult(interview);
     }
 
 }

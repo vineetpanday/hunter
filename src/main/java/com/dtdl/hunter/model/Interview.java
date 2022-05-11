@@ -7,21 +7,14 @@ public class Interview {
 
     private long id;
 
-
-    private String emailId;
-
-
     private String roundType;
 
-    public Interview(long id) {
-        this.id=id;
-    }
-
-    private Long slotId;
-
+    private UserSlotModel userSlot;
 
     private String feedback;
 
-
     private String result;
+
+    private CandidateModel candidate;
+
 }

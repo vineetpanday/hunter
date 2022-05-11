@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class UserSlotCRUDController {
@@ -29,5 +30,18 @@ public class UserSlotCRUDController {
     @ResponseBody
     public void deleteSlot(@PathVariable Long id){
          userSlotService.deleteSlot(id);
+    }
+
+    //empty not handeled
+    @RequestMapping(value = "v1/getSlotsForSpeciality",method = RequestMethod.GET)
+    @ResponseBody
+    public List<UserSlotModel> getSlotsForSpeciality(@RequestParam(value="speciality") String speciality){
+        return userSlotService.getSlotsForSpeciality(speciality);
+    }
+
+    @RequestMapping(value = "v1/getMyAvailableSlots",method = RequestMethod.GET)
+    @ResponseBody
+    public List<UserSlotModel> getMyAvailableSlots(@RequestParam(value="employeeId") String employeeId){
+        return userSlotService.getMyAvailableSlots(employeeId);
     }
 }
