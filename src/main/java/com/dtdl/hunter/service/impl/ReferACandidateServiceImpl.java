@@ -81,7 +81,7 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
     public void markCandidateNotInterested(Long id){
         Optional<Candidate> candidate = candidateRepository.findById(id);
         if(candidate.isPresent()){
-            candidate.get().setStatus("Candidate interested");
+            candidate.get().setStatus("Candidate not interested");
             candidateRepository.save(candidate.get());
         }
 
