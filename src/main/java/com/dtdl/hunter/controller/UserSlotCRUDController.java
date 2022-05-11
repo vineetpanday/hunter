@@ -16,7 +16,18 @@ public class UserSlotCRUDController {
     @RequestMapping(value = "v1/createSlot",method = RequestMethod.POST)
     @ResponseBody
     public UserSlotModel createSlot(@RequestBody UserSlotModel userSlotModel){
-        userSlotModel.setInterviewDate(new Date());
        return userSlotService.createSlot(userSlotModel);
+    }
+
+    @RequestMapping(value = "v1/updateSlot",method = RequestMethod.PATCH)
+    @ResponseBody
+    public UserSlotModel updateSlot(@RequestBody UserSlotModel userSlotModel){
+        return userSlotService.updateSlot(userSlotModel);
+    }
+
+    @RequestMapping(value = "v1/deleteSlot/{id}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteSlot(@PathVariable Long id){
+         userSlotService.deleteSlot(id);
     }
 }

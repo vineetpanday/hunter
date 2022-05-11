@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Data
 public class UserSlotModel {
+    private long id;
 
     private String employeeId;
 

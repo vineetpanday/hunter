@@ -7,6 +7,8 @@ import com.dtdl.hunter.service.UserSlotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserSlotServiceImpl implements UserSlotService {
 
@@ -20,7 +22,24 @@ public class UserSlotServiceImpl implements UserSlotService {
        userSlotEntity.setEmployeeId(userSlot.getEmployeeId());
        userSlotEntity.setSpeciality(userSlot.getSpeciality());
        userSlotEntity.setInterviewDate(userSlot.getInterviewDate());
-       userSlotRepository.save(userSlotEntity);
+       userSlotEntity = userSlotRepository.save(userSlotEntity);
+       userSlot.setId(userSlotEntity.getId());
        return userSlot;
+    }
+
+    @Override
+    public UserSlotModel updateSlot(UserSlotModel userSlotModel) {
+        Optional<UserSlot> userSlotEntity = userSlotRepository.findById(userSlotModel.getId());
+        userSlotEntity.get().setInterviewDate(userSlotModel.getInterviewDate());
+        userSlotRepository.save(userSlotEntity.get());
+        userSlotModel.setEmployeeId(userSlotEntity.get().getEmployeeId());
+        userSlotModel.setDesignation(userSlotEntity.get().getDesignation());
+        userSlotModel.setSpeciality(userSlotEntity.get().getSpeciality());
+        return userSlotModel;
+    }
+
+    @Override
+    public void deleteSlot(Long id) {
+        userSlotRepository.deleteById(id);
     }
 }
