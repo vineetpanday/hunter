@@ -17,6 +17,7 @@ public class CandidateInterviewProcessController {
     @RequestMapping(value="v1/getAllUpcomingInterviewForGivenUser",method= RequestMethod.GET)
     @ResponseBody
     public List<Interview> getAllUpcomingInterviewForGivenUser(@RequestParam(value="emailId") String emailId){
+     //where on result lagana rh gya h
       return  candidateInterviewProcessService.getAllUpcomingInterviewForGivenUser(emailId);
     }
 
