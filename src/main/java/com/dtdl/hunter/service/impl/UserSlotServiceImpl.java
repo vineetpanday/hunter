@@ -7,6 +7,8 @@ import com.dtdl.hunter.service.UserSlotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,7 +25,12 @@ public class UserSlotServiceImpl implements UserSlotService {
        userSlotEntity.setDesignation(userSlot.getDesignation());
        userSlotEntity.setEmployeeId(userSlot.getEmployeeId());
        userSlotEntity.setSpeciality(userSlot.getSpeciality());
-       userSlotEntity.setInterviewDate(userSlot.getInterviewDate());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(userSlot.getInterviewDate());
+        cal.add(Calendar.HOUR, -5);
+        cal.add(Calendar.MINUTE, -30);
+        Date oneHourBack = cal.getTime();
+       userSlotEntity.setInterviewDate(oneHourBack);
        userSlotEntity = userSlotRepository.save(userSlotEntity);
        userSlot.setId(userSlotEntity.getId());
        return userSlot;
