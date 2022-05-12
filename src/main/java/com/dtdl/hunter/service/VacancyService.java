@@ -2,6 +2,7 @@ package com.dtdl.hunter.service;
 
 
 import com.dtdl.hunter.entity.Vacancy;
+import com.dtdl.hunter.model.VacancyDto;
 import com.dtdl.hunter.model.VacancyModel;
 
 import java.util.List;
@@ -9,11 +10,13 @@ import java.util.List;
 public interface VacancyService {
 
 
-    public String createVacancy(VacancyModel vacancyModel);
+     String createVacancy(VacancyModel vacancyModel);
 
-    public List<Vacancy> getAllVacancies();
+     List<Vacancy> getAllVacancies();
 
-    public void deleteVacancy(Long id);
+     void deleteVacancy(Long id);
+
+    List<VacancyDto> getVacancies();
 
 
 }

@@ -1,6 +1,7 @@
 package com.dtdl.hunter.service.impl;
 
 import com.dtdl.hunter.entity.Vacancy;
+import com.dtdl.hunter.model.VacancyDto;
 import com.dtdl.hunter.model.VacancyModel;
 import com.dtdl.hunter.repository.VacancyRepository;
 import com.dtdl.hunter.service.VacancyService;
@@ -51,5 +52,22 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public void deleteVacancy(Long id) {
         vacancyRepository.deleteById(id);
+    }
+
+    @Override
+    public List<VacancyDto> getVacancies() {
+
+        Iterable<Vacancy> allVacancies= vacancyRepository.findAll();
+        List<VacancyDto> allVacanciesList = new ArrayList<>();
+
+        allVacancies.forEach( a->{
+            VacancyDto dto = new VacancyDto();
+            String jobId = "DTDL-".concat(String.valueOf(a.getId())).concat("-").concat(a.getRole());
+            dto.setJobId(jobId);
+            dto.setId(a.getId());
+            allVacanciesList.add(dto);
+        });
+
+        return  allVacanciesList;
     }
 }
