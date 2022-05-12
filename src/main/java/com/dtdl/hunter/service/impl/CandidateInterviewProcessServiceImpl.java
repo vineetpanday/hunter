@@ -5,12 +5,15 @@ import com.dtdl.hunter.entity.Candidate;
 import com.dtdl.hunter.entity.CandidateInterviewProcess;
 import com.dtdl.hunter.entity.UserSlot;
 import com.dtdl.hunter.model.CandidateModel;
+import com.dtdl.hunter.model.EmployeeModel;
 import com.dtdl.hunter.model.Interview;
 import com.dtdl.hunter.model.UserSlotModel;
 import com.dtdl.hunter.repository.CandidateInterviewProcessRepository;
 import com.dtdl.hunter.repository.CandidateRepository;
+import com.dtdl.hunter.repository.EmployeeRepository;
 import com.dtdl.hunter.repository.UserSlotRepository;
 import com.dtdl.hunter.service.CandidateInterviewProcessService;
+import com.dtdl.hunter.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,9 @@ public class CandidateInterviewProcessServiceImpl implements CandidateInterviewP
     UserSlotRepository userSlotRepository;
     @Autowired
     CandidateRepository candidateRepository;
+
+    @Autowired
+    SessionService sessionService;
 
     @Override
     public List<Interview> getAllUpcomingInterviewForGivenUser(String userId) {
@@ -59,6 +65,8 @@ public class CandidateInterviewProcessServiceImpl implements CandidateInterviewP
         Optional<UserSlot> slot = userSlotRepository.findById(interview.getUserSlot().getId());
         Optional<Candidate> candidate = candidateRepository.findById(interview.getCandidate().getId());
         candidate.get().setStatus(StringConstant.Status.InProcess.value);
+        EmployeeModel employee = sessionService.getEmployee(interview.getCandidate().getHrSpoc());
+        candidate.get().setHrSpoc(employee.getName());
         //check agr final save se update ho jaye to remove it
         Candidate updatedCandidate = candidateRepository.save(candidate.get());
         CandidateInterviewProcess candidateInterviewProcess=new CandidateInterviewProcess();

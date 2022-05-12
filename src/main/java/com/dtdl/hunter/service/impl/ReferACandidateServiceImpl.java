@@ -4,12 +4,14 @@ import com.dtdl.hunter.constant.StringConstant;
 import com.dtdl.hunter.entity.Candidate;
 import com.dtdl.hunter.entity.Resume;
 import com.dtdl.hunter.entity.Vacancy;
+import com.dtdl.hunter.model.EmployeeModel;
 import com.dtdl.hunter.model.Mail;
 import com.dtdl.hunter.repository.CandidateRepository;
 import com.dtdl.hunter.repository.ResumeRepository;
 import com.dtdl.hunter.repository.VacancyRepository;
 import com.dtdl.hunter.service.MailService;
 import com.dtdl.hunter.service.ReferACandidateService;
+import com.dtdl.hunter.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +35,9 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
 
     @Autowired
     private VacancyRepository vacancyRepository;
+
+    @Autowired
+    SessionService sessionService;
 
     @Autowired
     private MailService mailService;
@@ -162,7 +167,6 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
 
     @Override
     public List<com.dtdl.hunter.model.Candidate> getCandidatesMappedToHr(String userId, String result) {
-
         List<Candidate> candidates =  candidateRepository.findAllByHrSpocAndStatus(userId, result);
 
 
