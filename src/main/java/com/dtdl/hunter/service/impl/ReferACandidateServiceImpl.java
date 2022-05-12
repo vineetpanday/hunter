@@ -144,7 +144,7 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
     }
 
     @Override
-    public List<com.dtdl.hunter.model.Candidate> getCandidatedMappedToHr(String userId, String result) {
+    public List<com.dtdl.hunter.model.Candidate> getCandidatesMappedToHr(String userId, String result) {
 
         List<Candidate> candidates =  candidateRepository.findAllByHrSpocAndStatus(userId, result);
 

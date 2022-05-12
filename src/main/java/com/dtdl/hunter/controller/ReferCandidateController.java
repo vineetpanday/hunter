@@ -54,7 +54,7 @@ public class ReferCandidateController {
 
     @GetMapping(value="v1/getCandidatesMappedToHr")
     public void getCandidatesMappedToHr( @RequestParam String userId){
-        service.getCandidatedMappedToHr(userId, "In Process");
+        service.getCandidatesMappedToHr(userId, "In Process");
 
     }
 

@@ -17,6 +17,6 @@ public interface ReferACandidateService {
 
      void markAcceptOrRejectByHr(Long id, String result);
 
-     List<com.dtdl.hunter.model.Candidate> getCandidat edMappedToHr(String userId, String result);
+     List<com.dtdl.hunter.model.Candidate> getCandidatesMappedToHr(String userId, String result);
 
 }
