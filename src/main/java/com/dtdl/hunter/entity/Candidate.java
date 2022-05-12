@@ -36,8 +36,8 @@ public class Candidate {
     @JoinColumn(name="resume_id")
     private Resume resume;
 
-    @Column(name="linkedIn_id")
-    private String linkedInId;
+    @Column(name="phone")
+    private String phone;
 
     @Column(name="result")
     private String result;

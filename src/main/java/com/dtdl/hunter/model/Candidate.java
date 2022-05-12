@@ -23,7 +23,7 @@ public class Candidate {
 
     private Long resumeId;
 
-    private String linkedInId;
+    private String phone;
 
     private String result;
 

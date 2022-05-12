@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReferACandidateService {
 
-     void referCandidate( MultipartFile resume, String name, String email, String position, String linkedInId, String referredBy);
+     void referCandidate( MultipartFile resume, String name, String email, String position, String phone, String referredBy);
 
      void markCandidateNotInterested(Long id);
 

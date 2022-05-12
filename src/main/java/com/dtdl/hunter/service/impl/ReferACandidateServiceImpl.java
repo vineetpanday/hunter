@@ -32,20 +32,20 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
 
     @Override
     @Transactional
-    public void referCandidate(MultipartFile resume, String name, String email, String position, String linkedInId, String referredBy) {
+    public void referCandidate(MultipartFile resume, String name, String email, String position, String phone, String referredBy) {
 
-        saveDataInDb( resume,  name,  email,  position,  linkedInId,  referredBy);
+        saveDataInDb( resume,  name,  email,  position,  phone,  referredBy);
         sendMail(email);
 
 
     }
 
-    private void saveDataInDb(MultipartFile resume, String name, String email, String position, String linkedInId, String referredBy){
+    private void saveDataInDb(MultipartFile resume, String name, String email, String position, String phone, String referredBy){
         Candidate candidate = new Candidate();
         candidate.setEmailId(email);
         candidate.setName(name);
         candidate.setPosition(position);
-        candidate.setLinkedInId(linkedInId);
+        candidate.setPhone(phone);
 
         Date date = new Date();
         candidate.setReferralDate(date);
@@ -100,7 +100,7 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
           candidate.setStatus(c.getStatus());
           candidate.setEmailId(c.getEmailId());
           candidate.setResumeId(c.getResume().getId());
-          candidate.setLinkedInId(c.getLinkedInId());
+          candidate.setPhone(c.getPhone());
           candidate.setResult(c.getResult());
           candidate.setHrSpoc(c.getHrSpoc());
           candidatesDtoList.add(candidate);
@@ -125,7 +125,7 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
             candidate.setStatus(c.getStatus());
             candidate.setEmailId(c.getEmailId());
             candidate.setResumeId(c.getResume().getId());
-            candidate.setLinkedInId(c.getLinkedInId());
+            candidate.setPhone(c.getPhone());
             candidate.setResult(c.getResult());
             candidate.setHrSpoc(c.getHrSpoc());
             candidatesDtoList.add(candidate);
@@ -162,7 +162,7 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
             candidate.setStatus(c.getStatus());
             candidate.setEmailId(c.getEmailId());
             candidate.setResumeId(c.getResume().getId());
-            candidate.setLinkedInId(c.getLinkedInId());
+            candidate.setPhone(c.getPhone());
             candidate.setResult(c.getResult());
             candidate.setHrSpoc(c.getHrSpoc());
 

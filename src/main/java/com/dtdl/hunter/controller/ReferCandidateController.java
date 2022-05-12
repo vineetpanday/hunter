@@ -21,10 +21,10 @@ public class ReferCandidateController {
                                          @RequestParam("name") String name,
                                          @RequestParam("email") String email,
                                          @RequestParam("position") String position,
-                                         @RequestParam("linkedInId") String linkedInId,
+                                         @RequestParam("phone") String phone,
                                          @RequestParam("referredBy") String referredBy){
 
-    service.referCandidate(resume, name, email, position, linkedInId, referredBy);
+    service.referCandidate(resume, name, email, position, phone, referredBy);
 
     return ResponseEntity.ok("Success");
     }
