@@ -3,9 +3,11 @@ package com.dtdl.hunter.service.impl;
 import com.dtdl.hunter.constant.StringConstant;
 import com.dtdl.hunter.entity.Candidate;
 import com.dtdl.hunter.entity.Resume;
+import com.dtdl.hunter.entity.Vacancy;
 import com.dtdl.hunter.model.Mail;
 import com.dtdl.hunter.repository.CandidateRepository;
 import com.dtdl.hunter.repository.ResumeRepository;
+import com.dtdl.hunter.repository.VacancyRepository;
 import com.dtdl.hunter.service.MailService;
 import com.dtdl.hunter.service.ReferACandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
     private ResumeRepository resumeRepository;
 
     @Autowired
+    private VacancyRepository vacancyRepository;
+
+    @Autowired
     private MailService mailService;
 
     @Override
@@ -44,7 +49,12 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
         Candidate candidate = new Candidate();
         candidate.setEmailId(email);
         candidate.setName(name);
-        candidate.setPosition(position);
+
+        Optional<Vacancy> vacancy = vacancyRepository.findById(Long.valueOf(position));
+        if(vacancy.isPresent()){
+            candidate.setPosition(vacancy.get().getRole());
+        }
+
         candidate.setPhone(phone);
 
         Date date = new Date();
