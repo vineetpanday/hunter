@@ -1,5 +1,6 @@
 package com.dtdl.hunter.service.impl;
 
+import com.dtdl.hunter.constant.StringConstant;
 import com.dtdl.hunter.entity.Candidate;
 import com.dtdl.hunter.entity.CandidateInterviewProcess;
 import com.dtdl.hunter.entity.UserSlot;
@@ -57,7 +58,7 @@ public class CandidateInterviewProcessServiceImpl implements CandidateInterviewP
     public void scheduleInterview(Interview interview) {
         Optional<UserSlot> slot = userSlotRepository.findById(interview.getUserSlot().getId());
         Optional<Candidate> candidate = candidateRepository.findById(interview.getCandidate().getId());
-        candidate.get().setStatus("in progress");
+        candidate.get().setStatus(StringConstant.Status.InProcess.value);
         //check agr final save se update ho jaye to remove it
         Candidate updatedCandidate = candidateRepository.save(candidate.get());
         CandidateInterviewProcess candidateInterviewProcess=new CandidateInterviewProcess();
@@ -72,8 +73,8 @@ public class CandidateInterviewProcessServiceImpl implements CandidateInterviewP
         CandidateInterviewProcess interviewProcess = candidateInterviewProcessRepository.findById(interview.getId()).get();
         interviewProcess.setResult(interview.getResult());
         interviewProcess.setFeedback(interview.getFeedback());
-        if("failed".equals(interview.getResult())){
-            interviewProcess.getCandidate().setStatus("Rejected");
+        if(StringConstant.Status.Rejected.value.equals(interview.getResult())){
+            interviewProcess.getCandidate().setStatus(StringConstant.Status.Rejected.value);
             candidateRepository.save(interviewProcess.getCandidate());
         }
         candidateInterviewProcessRepository.save(interviewProcess);

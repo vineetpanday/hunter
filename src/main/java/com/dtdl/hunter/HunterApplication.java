@@ -18,7 +18,7 @@ public class HunterApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/v1/*").allowedOrigins("http://10.100.8.155:3000","http://10.100.9.14:3000");
+				registry.addMapping("/v1/*").allowedMethods("GET", "POST").allowedOrigins("http://10.100.8.155:3000","http://10.100.9.14:3000","http://10.100.9.44:8005");
 			}
 		};
 	}

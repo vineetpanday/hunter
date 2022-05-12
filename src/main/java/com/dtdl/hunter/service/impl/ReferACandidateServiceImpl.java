@@ -1,5 +1,6 @@
 package com.dtdl.hunter.service.impl;
 
+import com.dtdl.hunter.constant.StringConstant;
 import com.dtdl.hunter.entity.Candidate;
 import com.dtdl.hunter.entity.Resume;
 import com.dtdl.hunter.model.Mail;
@@ -49,7 +50,7 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
         Date date = new Date();
         candidate.setReferralDate(date);
         candidate.setReferredBy(referredBy);
-        candidate.setStatus("To be reviewed");
+        candidate.setStatus(StringConstant.Status.InReview.value);
 
         Resume r = new Resume();
 
@@ -79,7 +80,7 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
     public void markCandidateNotInterested(Long id){
         Optional<Candidate> candidate = candidateRepository.findById(id);
         if(candidate.isPresent()){
-            candidate.get().setStatus("Candidate not interested");
+            candidate.get().setStatus(StringConstant.Status.CandidateNotInterested.value);
             candidateRepository.save(candidate.get());
         }
     }
