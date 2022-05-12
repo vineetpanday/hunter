@@ -23,5 +23,8 @@ public class Employee {
     @Column(name="speciality")
     private String speciality;
 
+    @Column(name="password")
+    private String password;
+
 
 }

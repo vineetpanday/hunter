@@ -1,5 +1,6 @@
 package com.dtdl.hunter.controller;
 
+import com.dtdl.hunter.entity.Employee;
 import com.dtdl.hunter.model.Candidate;
 import com.dtdl.hunter.service.ReferACandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
