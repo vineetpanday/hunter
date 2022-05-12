@@ -1,11 +1,9 @@
 package com.dtdl.hunter.service.impl;
 
 import com.dtdl.hunter.constant.StringConstant;
-import com.dtdl.hunter.entity.Candidate;
-import com.dtdl.hunter.entity.Employee;
-import com.dtdl.hunter.entity.Resume;
-import com.dtdl.hunter.entity.Vacancy;
+import com.dtdl.hunter.entity.*;
 import com.dtdl.hunter.model.EmployeeModel;
+import com.dtdl.hunter.model.Interview;
 import com.dtdl.hunter.model.Mail;
 import com.dtdl.hunter.repository.CandidateRepository;
 import com.dtdl.hunter.repository.ResumeRepository;
@@ -13,17 +11,16 @@ import com.dtdl.hunter.repository.VacancyRepository;
 import com.dtdl.hunter.service.MailService;
 import com.dtdl.hunter.service.ReferACandidateService;
 import com.dtdl.hunter.service.SessionService;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReferACandidateServiceImpl implements ReferACandidateService {
@@ -187,7 +184,9 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
 
     @Override
     public List<com.dtdl.hunter.model.Candidate> getCandidatesMappedToHr(String userId, String result) {
-        List<Candidate> candidates =  candidateRepository.findAllByHrSpocAndStatus(userId, result);
+
+        EmployeeModel emp = sessionService.getEmployee(userId);
+        List<Candidate> candidates =  candidateRepository.findAllByHrSpocAndStatus(emp.getName(), result);
 
 
         List<com.dtdl.hunter.model.Candidate> candidatesDtoList = new ArrayList<>();
@@ -206,6 +205,20 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
             candidate.setPhone(c.getPhone());
             candidate.setResult(c.getResult());
             candidate.setHrSpoc(c.getHrSpoc());
+
+            Set<CandidateInterviewProcess> interviewProcessDetails = c.getCandidateInterviewProcesss();
+            if(!CollectionUtils.isEmpty(interviewProcessDetails)){
+                List<Interview> interviewList = new ArrayList<>();
+                interviewProcessDetails.forEach( a ->{
+                    Interview interview = new Interview();
+                    interview.setResult(a.getResult());
+                    interview.setFeedback(a.getFeedback());
+                    interview.setRoundType(a.getRoundType());
+                    interview.setInterviewer( a.getUserSlot().getEmployeeId());
+                    interviewList.add(interview);
+                });
+                candidate.setInterviewProcessList(interviewList);
+            }
 
             candidatesDtoList.add(candidate);
         });

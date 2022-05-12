@@ -3,6 +3,7 @@ package com.dtdl.hunter.model;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Candidate {
@@ -28,5 +29,7 @@ public class Candidate {
     private String result;
 
     private String hrSpoc;
+
+    private List<Interview> interviewProcessList;
 
 }

@@ -17,4 +17,6 @@ public class Interview {
 
     private CandidateModel candidate;
 
+    private String interviewer;
+
 }
