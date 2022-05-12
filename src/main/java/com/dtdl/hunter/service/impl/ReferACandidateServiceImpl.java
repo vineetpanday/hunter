@@ -13,6 +13,8 @@ import com.dtdl.hunter.service.ReferACandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -97,7 +99,7 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
 
     public List<com.dtdl.hunter.model.Candidate> getAllCandidatesToBeReviewed(String filter){
         List<Candidate> candidates = null;
-        if(filter!=null){
+        if(filter!=null && filter!=""){
             candidates = candidateRepository.findAllByStatusAndAndPosition(StringConstant.Status.InReview.value, filter);
         }else {
              candidates = candidateRepository.findAllByStatus(StringConstant.Status.InReview.value);
