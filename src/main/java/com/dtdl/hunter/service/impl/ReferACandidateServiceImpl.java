@@ -2,6 +2,7 @@ package com.dtdl.hunter.service.impl;
 
 import com.dtdl.hunter.constant.StringConstant;
 import com.dtdl.hunter.entity.Candidate;
+import com.dtdl.hunter.entity.Employee;
 import com.dtdl.hunter.entity.Resume;
 import com.dtdl.hunter.entity.Vacancy;
 import com.dtdl.hunter.model.EmployeeModel;
@@ -15,8 +16,7 @@ import com.dtdl.hunter.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -47,9 +47,16 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
     public void referCandidate(MultipartFile resume, String name, String email, String position, String phone, String referredBy) {
 
         saveDataInDb( resume,  name,  email,  position,  phone,  referredBy);
-        sendMail(email);
 
 
+    }
+
+    private String fetchNameFromEmailId(String referredBy) {
+       EmployeeModel employee = sessionService.getEmployee(referredBy);
+       if(employee!=null) {
+           return employee.getName();
+       }
+       return null;
     }
 
     private void saveDataInDb(MultipartFile resume, String name, String email, String position, String phone, String referredBy){
@@ -81,15 +88,28 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
         candidate.setResume(r);
         r.setCandidate(candidate);
         resumeRepository.save(r);
+
+        String referredByName = fetchNameFromEmailId(referredBy);
+        sendMail(email,name, referredByName, candidate.getPosition());
     }
 
-    private void sendMail(String receiverId)
+    private void sendMail(String receiverMail, String receiverName, String referredBy, String position)
     {
         Mail mail = new Mail();
         mail.setMailFrom("dtdlgurgaon@gmail.com");
-        mail.setMailTo(receiverId);
-        mail.setMailSubject("You have been referred at DT");
-        mail.setMailContent("Hi, \n\nYou have been referred at DT. We will contact you after analysing your resume!!\n\nThanks\nDTDL");
+        mail.setMailTo(receiverMail);
+
+        String subject = "Job Referral - ".concat(position).concat("  at Deutsche Telekom - DL");
+        mail.setMailSubject(subject);
+
+        String return_value=String.format("Dear %s,",receiverName)+"\n\n"+
+                String.format("Congratulations! You've been referred to Deutsche Telekom Digital Labs for the profile of %s by %s today. ",position,referredBy)+
+                "Our team is reviewing your profile and will get in touch with you in case we find you a good match.\n\n\n" +
+                "Thank you for your interest in Deutsche Telekom.\n\n\n"+
+                "Regards,\n"+
+                "Talent Acquisition Team,DTDL\n"+
+                "Gurugram";
+        mail.setMailContent(return_value);
         mailService.sendEmail(mail);
     }
 
