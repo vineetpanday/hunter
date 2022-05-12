@@ -1,13 +1,22 @@
 package com.dtdl.hunter.service;
 
-import com.dtdl.hunter.model.ReferCandidateInput;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.dtdl.hunter.model.Candidate;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public interface ReferACandidateService {
 
-    public void referCandidate( MultipartFile resume, String name, String email, String position, String linkedInId, String referredBy);
+     void referCandidate( MultipartFile resume, String name, String email, String position, String linkedInId, String referredBy);
 
-    public void markCandidateNotInterested(Long id);
+     void markCandidateNotInterested(Long id);
+
+     List<Candidate> getAllCandidatesToBeReviewed();
+
+     List<com.dtdl.hunter.model.Candidate> getUserReferrals(String userId);
+
+     void markAcceptOrRejectByHr(Long id, String result);
+
+     List<com.dtdl.hunter.model.Candidate> getCandidat edMappedToHr(String userId, String result);
+
 }

@@ -1,12 +1,13 @@
 package com.dtdl.hunter.controller;
 
-import com.dtdl.hunter.model.ReferCandidateInput;
-import com.dtdl.hunter.service.CandidateInterviewProcessService;
+import com.dtdl.hunter.model.Candidate;
 import com.dtdl.hunter.service.ReferACandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 public class ReferCandidateController {
@@ -32,5 +33,32 @@ public class ReferCandidateController {
      service.markCandidateNotInterested(id);
 
     }
+
+
+    @GetMapping(value="v1/getAllCandidatesToBeReviewed")
+    public List<Candidate> markCandidateNotInterested(){
+      return service.getAllCandidatesToBeReviewed();
+ }
+
+    @GetMapping(value="v1/getUserReferrals")
+    public ResponseEntity<List<Candidate>> getUserReferrals(@RequestParam String userId){
+
+        List<Candidate> candidates =  service.getUserReferrals(userId);
+        return ResponseEntity.ok(candidates);
+ }
+
+    @GetMapping(value="v1/acceptOrRejectByHr")
+    public void markAcceptOrRejectByHr(@RequestParam Long candidateId  , @RequestParam String result){
+        service.markAcceptOrRejectByHr(candidateId, result);
+    }
+
+    @GetMapping(value="v1/getCandidatesMappedToHr")
+    public void getCandidatesMappedToHr( @RequestParam String userId){
+        service.getCandidatedMappedToHr(userId, "In Process");
+
+    }
+
+
+
 
 }
