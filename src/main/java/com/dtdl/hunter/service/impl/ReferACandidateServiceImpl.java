@@ -95,8 +95,13 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
         }
     }
 
-    public List<com.dtdl.hunter.model.Candidate> getAllCandidatesToBeReviewed(){
-      List<Candidate> candidates = candidateRepository.findAllByStatus("To be reviewed");
+    public List<com.dtdl.hunter.model.Candidate> getAllCandidatesToBeReviewed(String filter){
+        List<Candidate> candidates = null;
+        if(filter!=null){
+            candidates = candidateRepository.findAllByStatusAndAndPosition(StringConstant.Status.InReview.value, filter);
+        }else {
+             candidates = candidateRepository.findAllByStatus(StringConstant.Status.InReview.value);
+        }
       List<com.dtdl.hunter.model.Candidate> candidatesDtoList = new ArrayList<>();
 
       candidates.forEach( c->{

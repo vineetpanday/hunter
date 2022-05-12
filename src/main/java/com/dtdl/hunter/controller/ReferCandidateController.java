@@ -38,8 +38,8 @@ public class ReferCandidateController {
 
 
     @GetMapping(value="v1/getAllCandidatesToBeReviewed")
-    public List<Candidate> markCandidateNotInterested(){
-      return service.getAllCandidatesToBeReviewed();
+    public List<Candidate> getAllCandidatesToBeReviewed(@RequestParam String filter){
+      return service.getAllCandidatesToBeReviewed(filter);
  }
 
     @GetMapping(value="v1/getUserReferrals")

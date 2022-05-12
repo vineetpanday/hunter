@@ -19,4 +19,7 @@ public interface CandidateRepository extends CrudRepository<Candidate, Long> {
 
     List<Candidate> findAllByHrSpocAndStatus(String userId, String result);
 
+    List<Candidate> findAllByStatusAndAndPosition(String status, String position);
+
+
 }

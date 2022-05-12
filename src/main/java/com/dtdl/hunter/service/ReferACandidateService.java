@@ -11,7 +11,7 @@ public interface ReferACandidateService {
 
      void markCandidateNotInterested(Long id);
 
-     List<Candidate> getAllCandidatesToBeReviewed();
+     List<Candidate> getAllCandidatesToBeReviewed(String filter);
 
      List<com.dtdl.hunter.model.Candidate> getUserReferrals(String userId);
 
