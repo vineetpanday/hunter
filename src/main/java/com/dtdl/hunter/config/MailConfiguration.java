@@ -36,9 +36,12 @@ public class MailConfiguration {
 
         Properties javaMailProperties = new Properties();
         javaMailProperties.put("mail.smtp.starttls.enable", "true");
+        javaMailProperties.put("mail.smtp.starttls.required", "true");
+        javaMailProperties.put("mail.smtp.ssl.protocols", "TLSv1.2");
         javaMailProperties.put("mail.smtp.auth", "true");
         javaMailProperties.put("mail.transport.protocol", "smtp");
         javaMailProperties.put("mail.debug", "true");
+        javaMailProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
         mailSender.setJavaMailProperties(javaMailProperties);
         return mailSender;

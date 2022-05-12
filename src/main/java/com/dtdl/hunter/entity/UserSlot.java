@@ -1,6 +1,7 @@
 package com.dtdl.hunter.entity;
 
 import lombok.Data;
+import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class UserSlot {
     @Column(name="speciality")
     private String speciality;
 
-    @OneToOne(mappedBy = "userSlot")
+    @OneToOne(mappedBy = "userSlot",fetch = FetchType.LAZY)
     CandidateInterviewProcess candidateInterviewProcess;
 
 }

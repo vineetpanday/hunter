@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CandidateInterviewProcessRepository extends CrudRepository<CandidateInterviewProcess, Long> {
-    List<CandidateInterviewProcess> findByUserSlotEmployeeId(String emailId);
+    List<CandidateInterviewProcess> findByUserSlotEmployeeIdAndResultIsNull(String emailId);
 }

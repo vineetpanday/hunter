@@ -45,7 +45,7 @@ public class Candidate {
     @Column(name="hr_spoc")
     private String hrSpoc;
 
-    @OneToMany(mappedBy = "candidate")
+    @OneToMany(mappedBy = "candidate",fetch = FetchType.LAZY)
     private Set<CandidateInterviewProcess> candidateInterviewProcesss;
 
 }

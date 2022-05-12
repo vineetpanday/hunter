@@ -72,7 +72,6 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
         mail.setMailTo(receiverId);
         mail.setMailSubject("You have been referred at DT");
         mail.setMailContent("Hi, \n\nYou have been referred at DT. We will contact you after analysing your resume!!\n\nThanks\nDTDL");
-
         mailService.sendEmail(mail);
     }
 

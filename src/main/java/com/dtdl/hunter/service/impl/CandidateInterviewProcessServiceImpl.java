@@ -29,7 +29,7 @@ public class CandidateInterviewProcessServiceImpl implements CandidateInterviewP
 
     @Override
     public List<Interview> getAllUpcomingInterviewForGivenUser(String userId) {
-        List<CandidateInterviewProcess> interviews = candidateInterviewProcessRepository.findByUserSlotEmployeeId(userId);
+        List<CandidateInterviewProcess> interviews = candidateInterviewProcessRepository.findByUserSlotEmployeeIdAndResultIsNull(userId);
         List<Interview> interviewsList = interviews.stream().map(interview -> getInterviewBean(interview)).collect(Collectors.toList());
         return interviewsList;
     }
@@ -42,11 +42,14 @@ public class CandidateInterviewProcessServiceImpl implements CandidateInterviewP
         candidate.setResumeId(interviewProcess.getCandidate().getResume().getId());
         UserSlotModel slot=new UserSlotModel();
         slot.setId(interviewProcess.getUserSlot().getId());
+        slot.setDesignation(interviewProcess.getUserSlot().getDesignation());
+        slot.setSpeciality(interviewProcess.getUserSlot().getSpeciality());
         slot.setInterviewDate(interviewProcess.getUserSlot().getInterviewDate());
         Interview interview=new Interview();
         interview.setCandidate(candidate);
         interview.setId(interviewProcess.getId());
         interview.setUserSlot(slot);
+        interview.setRoundType(interviewProcess.getRoundType());
         return interview;
     }
 

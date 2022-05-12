@@ -12,7 +12,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @RequestMapping(name = "v1/login",method = RequestMethod.GET)
+    @RequestMapping(value = "v1/login",method = RequestMethod.GET)
     public ResponseEntity<Employee> getEmployee(@RequestParam String emailId){
 
         Employee employee = loginService.getEmployee(emailId);
