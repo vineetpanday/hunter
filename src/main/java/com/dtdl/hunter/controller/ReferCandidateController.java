@@ -2,6 +2,7 @@ package com.dtdl.hunter.controller;
 
 import com.dtdl.hunter.constant.StringConstant;
 import com.dtdl.hunter.model.Candidate;
+import com.dtdl.hunter.model.MyPanelDto;
 import com.dtdl.hunter.service.ReferACandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +55,7 @@ public class ReferCandidateController {
     }
 
     @GetMapping(value="v1/getCandidatesMappedToHr")
-    public List<Candidate> getCandidatesMappedToHr(@RequestParam String userId){
+    public List<MyPanelDto> getCandidatesMappedToHr(@RequestParam String userId){
        return service.getCandidatesMappedToHr(userId, StringConstant.Status.InProcess.value);
 
     }

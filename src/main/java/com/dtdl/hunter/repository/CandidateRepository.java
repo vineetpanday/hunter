@@ -2,6 +2,7 @@ package com.dtdl.hunter.repository;
 
 import com.dtdl.hunter.constant.StringConstant;
 import com.dtdl.hunter.entity.Candidate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +19,6 @@ public interface CandidateRepository extends CrudRepository<Candidate, Long> {
 
     List<Candidate> findAllByReferredBy(String referredBy);
 
-    List<Candidate> findAllByHrSpocAndStatus(String userId, String result);
 
     List<Candidate> findAllByStatusAndAndPosition(String status, String position);
 
