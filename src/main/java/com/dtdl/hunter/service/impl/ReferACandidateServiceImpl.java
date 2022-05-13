@@ -87,7 +87,11 @@ public class ReferACandidateServiceImpl implements ReferACandidateService {
         resumeRepository.save(r);
 
         String referredByName = fetchNameFromEmailId(referredBy);
-        sendMail(email,name, referredByName, candidate.getPosition());
+
+        Thread t = new Thread(() -> {
+            sendMail(email,name, referredByName, candidate.getPosition());
+        });
+       t.start();
     }
 
     private void sendMail(String receiverMail, String receiverName, String referredBy, String position)
